@@ -1,0 +1,22 @@
+<!--
+  Extrait de configuration de collecte des Windows Event Logs (MODÈLE).
+  Côté agent Wazuh sur DC01 : C:\Program Files (x86)\ossec-agent\ossec.conf
+
+  Ne jamais committer la clé d'enrôlement (client.keys) ni un ossec.conf complet
+  contenant adresse publique du manager ou secrets. Ici, seul le bloc de collecte
+  du canal Security.
+-->
+
+<localfile>
+  <location>Security</location>
+  <log_format>eventchannel</log_format>
+  <!-- Filtre optionnel pour se concentrer sur les échecs d'authentification -->
+  <query>Event/System[EventID=4625 or EventID=4740 or EventID=4624]</query>
+</localfile>
+
+<!--
+  Côté serveur : vérifier que l'audit des échecs d'ouverture de session est activé.
+  Sur DC01 (ou via GPO) :
+    auditpol /set /subcategory:"Logon" /failure:enable
+    auditpol /set /subcategory:"Account Lockout" /success:enable
+-->
