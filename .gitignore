@@ -1,0 +1,10 @@
+# Secrets / exports non sanitizés
+.env
+*.key
+*.pfx
+*-raw.*
+ossec.conf.full
+
+# Divers
+.DS_Store
+*.swp
